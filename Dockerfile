@@ -1,4 +1,6 @@
-FROM alpine:3.9
+FROM alpine:3.10
+
+RUN apk add --update --no-cache ca-certificates
 
 COPY cr /usr/local/bin/cr
 
