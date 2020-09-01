@@ -17,10 +17,10 @@ jobs:
           fetch-depth: 0
 
       - name: Tag
-        uses: tvdias/github-tagger@v0.0.2
-        with:
-          repo-token: "${{ secrets.CI_TOKEN }}"
-          tag: "${{ github.event.inputs.version }}"
+        run: |
+          tag='${{ github.event.inputs.version }}'
+          git tag --annotate --message "Tag for release $tag" "$tag"
+          git push "https://x-access-token:${{ secrets.CI_TOKEN }}/$GITHUB_REPOSITORY" "refs/tags/$tag"
 
       - name: Test
         run: mage -v test
